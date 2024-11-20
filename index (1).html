@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>派视读 - 小说和动画网站汇总</title>
+    <style>
+        /* 页面整体样式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            background-image: url('https://source.unsplash.com/featured/?books'); /* 背景图像链接，使用了Unsplash的公共领域图片 */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #444;
+            font-size: 1.5em;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* 列表样式 */
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        li {
+            margin: 5px;
+            flex: 0 1 calc(33.333% - 10px); /* 三列布局，每个占1/3宽度 */
+            box-sizing: border-box;
+        }
+
+        a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007BFF;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        a:active {
+            background-color: #004085;
+        }
+
+        /* 按钮样式 */
+        .button {
+            padding: 5px 10px; /* 减小按钮大小 */
+            background-color: #28a745;
+            color: white;
+            font-size: 0.9em; /* 减小字体大小 */
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .button:active {
+            background-color: #1e7e34;
+        }
+
+        /* 小说展示样式 */
+        .novels {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .novel {
+            margin: 5px;
+            flex: 0 1 calc(25% - 10px); /* 四列布局，每个占1/4宽度 */
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .novel img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>派视读 - 小说和动画网站汇总</h1>
+        <p>在这里，您可以找到大量的小说和动画网站，快来挑选你喜欢的吧！</p>
+        <h2>小说网站</h2>
+        <ul id="novelList">
+            <!-- 小说链接将由 JavaScript 动态生成 -->
+        </ul>
+        <h2>动画网站</h2>
+        <ul id="animeList">
+            <!-- 动画链接将由 JavaScript 动态生成 -->
+        </ul>
+        <a href="javascript:void(0);" class="button" onclick="toggleLinks()">立即阅读</a>
+        <h2>推荐小说</h2>
+        <div class="novels">
+            <div class="novel">
+                <src="https://via.placeholder.com/150" alt="小说1">
+                <p><strong>為所欲為</strong></p>
+                <a href="https://czbooks.net/n/cpg8ace" target="_blank">阅读更多</a>
+            </div>
+            <div class="novel">
+                <src="https://via.placeholder.com/150" alt="小说2">
+                <p><strong>奉旨逃婚</strong></p>
+                <a href="https://czbooks.net/n/s6aej9" target="_blank">阅读更多</a>
+            </div>
+            <div class="novel">
+                <src="https://via.placeholder.com/150" alt="小说3">
+                <p><strong>王府寵妾</strong></p>
+                <a href="https://czbooks.net/n/cp627ad" target="_blank">阅读更多</a>
+            </div>
+            <div class="novel">
+                <src="https://via.placeholder.com/150" alt="小说4">
+                <p><strong>永夜星河</strong></p>
+                <a href="https://czbooks.net/n/cpgja8p" target="_blank">阅读更多</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let linksVisible = false;
+
+        // 小说网站数据
+        const novelSites = [
+            
+            { name: "纵横中文网", url: "http://www.zongheng.com" },
+            { name: "飞卢小说网", url: "https://www.faloo.com" },
+            { name: "小说阅读网", url: "https://www.readnovel.com" },
+            { name: "潇湘书院", url: "https://www.xxsy.net" },
+            { name: "17K小说网", url: "https://www.17k.com" },
+            { name: "红袖添香", url: "https://www.hongxiu.com" },
+            { name: "创世中文网", url: "https://chuangshi.qq.com" }
+        ];
+
+        // 动画网站数据
+        const animeSites = [
+            { name: "Bilibili", url: "https://www.bilibili.com" },
+            { name: "腾讯视频", url: "https://v.qq.com" },
+            { name: "优酷视频", url: "https://www.youku.com" },
+            { name: "爱奇艺", url: "https://www.iqiyi.com" }
+        ];
+
+        // 显示或隐藏小说和动画网站列表
+        function toggleLinks() {
+            const novelList = document.getElementById('novelList');
+            const animeList = document.getElementById('animeList');
+            if (linksVisible) {
+                novelList.innerHTML = '';
+                animeList.innerHTML = '';
+            } else {
+                displaySites(novelSites, 'novelList');
+                displaySites(animeSites, 'animeList');
+            }
+            linksVisible = !linksVisible;
+        }
+
+        // 显示小说和动画网站列表
+        function displaySites(siteList, elementId) {
+            const listElement = document.getElementById(elementId);
+            siteList.forEach(site => {
+                const listItem = document.createElement('li');
+                const link = document.createElement('a');
+                link.href = site.url;
+                link.target = '_blank';
+                link.textContent = site.name;
+                listItem.appendChild(link);
+                listElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
