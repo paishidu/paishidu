@@ -8,7 +8,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f5f5;
-            background-image: url('https://source.unsplash.com/featured/?books'); /* 背景图像链接，使用了Unsplash的公共领域图片 */
+            background-image: url('https://source.unsplash.com/featured/?books'); /* 背景图像链接 */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -85,10 +85,10 @@
 
         /* 按钮样式 */
         .button {
-            padding: 5px 10px; /* 减小按钮大小 */
+            padding: 10px 20px;
             background-color: #28a745;
             color: white;
-            font-size: 0.9em; /* 减小字体大小 */
+            font-size: 1em;
             border-radius: 5px;
             text-decoration: none;
             transition: background-color 0.3s;
@@ -125,6 +125,15 @@
             height: auto;
             border-radius: 5px;
         }
+
+        /* 隐私政策和条款服务iframe样式 */
+        .iframe-container {
+            width: 100%;
+            height: 300px;
+            border: none;
+            margin-top: 20px;
+            display: none; /* 默认不显示 */
+        }
     </style>
 </head>
 <body>
@@ -140,37 +149,61 @@
             <!-- 动画链接将由 JavaScript 动态生成 -->
         </ul>
         <a href="javascript:void(0);" class="button" onclick="toggleLinks()">立即阅读</a>
+        <button class="button" onclick="signUp()">每日签到</button>
+        <p id="score">您的积分：0</p>
         <h2>推荐小说</h2>
         <div class="novels">
             <div class="novel">
-                <src="https://via.placeholder.com/150" alt="小说1">
-                <p><strong>為所欲為</strong></p>
+                <p><strong>為所欲為</strong> </p>
                 <a href="https://czbooks.net/n/cpg8ace" target="_blank">阅读更多</a>
             </div>
             <div class="novel">
-                <src="https://via.placeholder.com/150" alt="小说2">
-                <p><strong>奉旨逃婚</strong></p>
+                <p><strong>奉旨逃婚</strong> </p>
                 <a href="https://czbooks.net/n/s6aej9" target="_blank">阅读更多</a>
             </div>
             <div class="novel">
-                <src="https://via.placeholder.com/150" alt="小说3">
-                <p><strong>王府寵妾</strong></p>
+                <p><strong>王府寵妾</strong> </p>
                 <a href="https://czbooks.net/n/cp627ad" target="_blank">阅读更多</a>
             </div>
             <div class="novel">
-                <src="https://via.placeholder.com/150" alt="小说4">
-                <p><strong>永夜星河</strong></p>
+                <p><strong>永夜星河</strong> </p>
                 <a href="https://czbooks.net/n/cpgja8p" target="_blank">阅读更多</a>
             </div>
+        </div>
+        <h2>隐私政策</h2>
+        <button class="button" onclick="togglePrivacyPolicy()">显示/隐藏隐私政策</button>
+        <div class="iframe-container" id="privacyPolicyContainer">
+            <iframe src="https://www.termsfeed.com/live/9fa0a424-cee9-4ef7-b7b5-c2adc1a35426" title="Privacy Policy" id="privacyPolicyIframe"></iframe>
+        </div>
+        <h2>服务条款</h2>
+        <button class="button" onclick="toggleTermsCondition()">显示/隐藏服务条款</button>
+        <div class="iframe-container" id="termsConditionContainer">
+            <iframe src="https://www.termsfeed.com/live/d344fe80-574d-4f60-a6b7-d8320ae8ada1" title="Terms and Conditions" id="termsConditionIframe"></iframe>
         </div>
     </div>
 
     <script>
         let linksVisible = false;
+        let userScore = 0;
+        const scoreKey = 'userScore'; // Local storage key for score
+
+        // Load score from local storage
+        function loadScore() {
+            if (typeof(Storage) !== "undefined") {
+                userScore = parseInt(localStorage.getItem(scoreKey), 10) || 0;
+                document.getElementById('score').textContent = `您的积分：${userScore}`;
+            }
+        }
+
+        // Save score to local storage
+        function saveScore() {
+            if (typeof(Storage) !== "undefined") {
+                localStorage.setItem(scoreKey, userScore.toString());
+            }
+        }
 
         // 小说网站数据
         const novelSites = [
-            
             { name: "纵横中文网", url: "http://www.zongheng.com" },
             { name: "飞卢小说网", url: "https://www.faloo.com" },
             { name: "小说阅读网", url: "https://www.readnovel.com" },
@@ -184,11 +217,9 @@
         const animeSites = [
             { name: "Bilibili", url: "https://www.bilibili.com" },
             { name: "腾讯视频", url: "https://v.qq.com" },
-            { name: "优酷视频", url: "https://www.youku.com" },
-            { name: "爱奇艺", url: "https://www.iqiyi.com" }
+            { name: "优酷视频", url: "https://www.youku.com" }
         ];
 
-        // 显示或隐藏小说和动画网站列表
         function toggleLinks() {
             const novelList = document.getElementById('novelList');
             const animeList = document.getElementById('animeList');
@@ -196,13 +227,12 @@
                 novelList.innerHTML = '';
                 animeList.innerHTML = '';
             } else {
-                displaySites(novelSites, 'novelList');
+displaySites(novelSites, 'novelList');
                 displaySites(animeSites, 'animeList');
             }
             linksVisible = !linksVisible;
         }
 
-        // 显示小说和动画网站列表
         function displaySites(siteList, elementId) {
             const listElement = document.getElementById(elementId);
             siteList.forEach(site => {
@@ -215,6 +245,15 @@
                 listElement.appendChild(listItem);
             });
         }
+
+        function signUp() {
+            userScore += 1; // 每次签到增加1分
+            document.getElementById('score').textContent = `您的积分：${userScore}`;
+            saveScore();
+        }
+
+        // Initialize score on page load
+        loadScore();
     </script>
 </body>
 </html>
