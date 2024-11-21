@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -149,8 +150,7 @@
             <!-- 动画链接将由 JavaScript 动态生成 -->
         </ul>
         <a href="javascript:void(0);" class="button" onclick="toggleLinks()">立即阅读</a>
-        <button class="button" onclick="signUp()">每日签到</button>
-        <p id="score">您的积分：0</p>
+        
         <h2>推荐小说</h2>
         <div class="novels">
             <div class="novel">
@@ -166,7 +166,7 @@
                 <a href="https://czbooks.net/n/cp627ad" target="_blank">阅读更多</a>
             </div>
             <div class="novel">
-                <p><strong>永夜星河</strong> </p>
+                <p><strong>永夜星河</strong></p>
                 <a href="https://czbooks.net/n/cpgja8p" target="_blank">阅读更多</a>
             </div>
         </div>
@@ -246,14 +246,7 @@ displaySites(novelSites, 'novelList');
             });
         }
 
-        function signUp() {
-            userScore += 1; // 每次签到增加1分
-            document.getElementById('score').textContent = `您的积分：${userScore}`;
-            saveScore();
-        }
-
-        // Initialize score on page load
-        loadScore();
+        
     </script>
 </body>
 </html>
